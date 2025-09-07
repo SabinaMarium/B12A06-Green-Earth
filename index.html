@@ -50,7 +50,7 @@
       </nav>
 
       <!-- Right: Yellow CTA Button -->
-      <button class="inline-flex items-center rounded-full bg-yellow-400 text-green-700 px-4 py-2 text-sm font-medium hover:bg-green-300 transition">
+      <button class="inline-flex items-center rounded-full bg-yellow-400 text-green-700 px-4 py-2 text-sm font-medium hover:bg-yellow-500 transition">
   Plant a Tree
 </button>
 
@@ -67,7 +67,7 @@
     Join our mission to plant 1 million trees and make the Earth greener for future <br> generations.
   </p>
   <div class="mt-6">
-    <button class="bg-yellow-400 hover:bg-green-300 text-green-700 font-medium py-2 px-5 rounded-full transition">
+    <button class="bg-yellow-400 hover:bg-yellow-500 text-green-700 font-medium py-2 px-5 rounded-full transition">
       Get Involved
     </button>
   </div>
@@ -177,26 +177,27 @@
 
 
     <!-- DONATE BANNER + FORM -->
-    <section id="donate" class="relative overflow-hidden">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-        <div class="rounded-3xl bg-gradient-to-br from-ge-primary to-ge-dark p-8 md:p-10 text-white shadow-soft">
-          <div class="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h3 class="text-2xl font-bold">Plant a Tree Today</h3>
-              <p class="mt-2 text-white/80">Leave a note, choose a dedication, and make an impact now.</p>
-            </div>
-            <form id="donationForm" class="bg-white text-slate-800 rounded-2xl p-4 md:p-6">
-              <div class="grid sm:grid-cols-3 gap-3">
-                <input class="rounded-xl border px-3 py-2 outline-none focus:ring-2 focus:ring-ge-light" placeholder="Your Name" required />
-                <input class="rounded-xl border px-3 py-2 outline-none focus:ring-2 focus:ring-ge-light" type="email" placeholder="Email" required />
-                <input class="rounded-xl border px-3 py-2 outline-none focus:ring-2 focus:ring-ge-light" type="number" min="1" placeholder="Amount (USD)" required />
-              </div>
-              <button class="mt-4 w-full rounded-xl bg-ge-primary text-white py-2 hover:bg-ge-dark">Donate Now</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
+    <section id="donate" class="bg-green-800 py-16">
+  <div class="max-w-md mx-auto text-center text-white">
+    <h2 class="text-2xl font-bold mb-6">Plant a Tree Today</h2>
+  <form class="bg-green-700 p-6 rounded-lg space-y-4">
+      <input type="text" placeholder="Your Name" 
+        class="w-full rounded-md px-4 py-2 text-gray-800 placeholder-gray-400 outline-none" required/>
+  <input type="email" placeholder="Your Email Address" 
+        class="w-full rounded-md px-4 py-2 text-gray-800 placeholder-gray-400 outline-none"
+        required/>
+<select class="w-full rounded-md px-4 py-2 text-gray-800 outline-none" required>
+        <option value="">Number of Trees</option>
+        <option value="1">1 Tree</option>
+        <option value="5">5 Trees</option>
+        <option value="10">10 Trees</option>
+        <option value="50">50 Trees</option>
+      </select>
+    <button type="submit" class="w-full bg-yellow-400 text-green-800 font-semibold py-2 rounded-full hover:bg-yellow-500 transition">Donate Now</button>
+    </form>
+  </div>
+</section>
+
 
     <!-- FOOTER -->
     <footer class="mt-auto bg-white border-t">
