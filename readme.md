@@ -1,3 +1,7 @@
+[Live Link](https://sabinamarium.github.io/B12A06-Green-Earth/)
+
+
+
 1. What is the difference between var, let, and const?
 ans: some feature differences:
 i) Scope:var is function-scoped but let,const are block-scoped.
