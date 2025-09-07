@@ -29,26 +29,36 @@ const showToast = (msg) => {
   setTimeout(() => toast.classList.add('hidden'), 1800);
 };
 
-// Fetch helper
+// Fetch utility
 async function fetchJSON(url) {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`API error: ${res.status}`);
   return res.json();
 }
 
-// Render Categories
+// Highlight active category
+function highlightCategory(activeBtn) {
+  categoriesEl.querySelectorAll('button').forEach(btn => {
+    btn.classList.remove('bg-ge-primary', 'text-white');
+  });
+  activeBtn.classList.add('bg-ge-primary', 'text-white');
+}
+// Render categories
 function renderCategories(list = []) {
   categoriesEl.innerHTML = '';
 
+  // "All Trees" button
   const allBtn = document.createElement('button');
   allBtn.textContent = 'All Trees';
-  allBtn.className = 'w-full text-left px-4 py-2 rounded-lg font-medium bg-ge-primary text-white hover:bg-ge-dark transition';
+  allBtn.className= 'w-full text-left px-4 py-2 rounded-lg border hover:bg-ge-primary/10 transition';
+
   allBtn.addEventListener('click', () => {
     highlightCategory(allBtn);
-    loadPlants();
+    loadPlants(); 
   });
   categoriesEl.append(allBtn);
 
+  // If no categories
   if (!Array.isArray(list) || list.length === 0) {
     const placeholder = document.createElement('div');
     placeholder.textContent = 'No categories found.';
@@ -57,39 +67,29 @@ function renderCategories(list = []) {
     return;
   }
 
-  list.forEach((cat) => {
+  // Add categories
+  list.forEach(cat => {
     const btn = document.createElement('button');
-    btn.textContent = cat.category;
-    btn.setAttribute('data-id', cat.id || '');
+    btn.textContent = cat.category_name || cat.category || 'Unknown';
+    btn.setAttribute('data-id', cat.id || cat._id || '');
     btn.className = 'w-full text-left px-4 py-2 rounded-lg border hover:bg-ge-primary/10 transition';
     btn.addEventListener('click', () => {
       highlightCategory(btn);
-      loadPlants(cat.id);
+      loadPlants(cat.id || cat._id);
     });
     categoriesEl.append(btn);
   });
 
   highlightCategory(allBtn);
 }
-
-// Highlight Active Button
-function highlightCategory(activeBtn) {
-  categoriesEl.querySelectorAll('button').forEach(btn => {
-    btn.classList.remove('bg-ge-primary', 'text-white');
-  });
-  activeBtn.classList.add('bg-ge-primary', 'text-white');
-}
-
-// Render Plants
+// Render plants
 function renderPlants(plants = []) {
   plantGrid.innerHTML = '';
   plants.forEach((p) => {
     const el = document.createElement('article');
     el.className = 'bg-white rounded-2xl shadow-soft flex flex-col overflow-hidden';
     el.innerHTML = `
-      <div class="aspect-[4/3] bg-slate-100 overflow-hidden">
-        <img src="${p.image}" alt="${p.name}" class="h-full w-full object-cover">
-      </div>
+      <div class="aspect-[4/3] bg-slate-100 overflow-hidden"><img src="${p.image}" alt="${p.name}" class="h-full w-full object-cover"></div>
       <div class="p-4 flex flex-1 flex-col">
         <h3 class="text-lg font-bold text-ge-primary cursor-pointer" data-id="${p.id}">${p.name}</h3>
         <p class="mt-1 text-sm text-slate-600">${p.description?.slice(0, 80)}...</p>
@@ -106,7 +106,7 @@ function renderPlants(plants = []) {
   });
 }
 
-// Cart Functions
+// Cart functions
 function renderCart() {
   cartList.innerHTML = '';
   let total = 0;
@@ -130,13 +130,14 @@ function addToCart(item) {
   renderCart();
   showToast(`${item.name} added to cart`);
 }
+
 function removeFromCart(idx) {
   showToast(`${cart[idx].name} removed`);
   cart.splice(idx, 1);
   renderCart();
 }
 
-// Modal Functions
+// Modal
 async function openModal(id) {
   modal.classList.remove('hidden');
   modalBody.innerHTML = 'Loading...';
@@ -173,18 +174,24 @@ modal.addEventListener('click', (e) => {
   if (e.target === modal) closeModal();
 });
 
-// Initialization
+// Load categories and plants
 async function init() {
   try {
-    const catData = await fetchJSON(API.categories);
-    console.log("Categories API response:", catData);
-    renderCategories(catData?.data || []);
+    const response = await fetchJSON(API.categories);
+    console.log("Categories API response:", response);
+    
+    const catList = response?.categories;
+    console.log("Parsed category list:", catList);
+    
+    renderCategories(catList || []);
     await loadPlants();
   } catch (err) {
     console.error("Failed to load categories:", err);
   }
 }
 
+
+// Load plants by category
 async function loadPlants(categoryId = null) {
   try {
     const url = categoryId && categoryId !== 'all' ? API.byCategory(categoryId) : API.allPlants;
@@ -192,7 +199,7 @@ async function loadPlants(categoryId = null) {
     const plants = data?.data?.plants || data?.plants || [];
     renderPlants(plants);
   } catch (err) {
-    console.error(err);
+    console.error("Failed to load plants:", err);
   }
 }
 
