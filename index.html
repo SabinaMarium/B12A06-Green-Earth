@@ -59,8 +59,8 @@
 </header>
 <!-- BANNER -->
 <section style="background-color: #d5f4e6;" class="relative overflow-hidden py-20 text-center">
-  <img src="assets/hero-leaf1.png" alt="" class="absolute left-0 bottom-0 w-72 sm:w-80 md:w-96 h-auto" />
-  <img src="assets/hero-leaf2.png" alt="" class="absolute right-0 bottom-0 w-72 sm:w-80 md:w-96 h-auto" />
+  <img src="assets/hero-leaf1.png" alt="" class="hidden lg:block absolute left-0 bottom-0 w-72 sm:w-80 md:w-96 h-auto" />
+  <img src="assets/hero-leaf2.png" alt="" class="hidden lg:block absolute right-0 bottom-0 w-72 sm:w-80 md:w-96 h-auto" />
 
   <h1 class="text-3xl sm:text-5xl font-bold text-gray-900">Plant a Tree, Grow a Future</h1>
   <p class="mt-4 text-slate-600 max-w-2xl mx-auto">
@@ -72,53 +72,36 @@
     </button>
   </div>
 </section>
-
-    <!-- MAIN CONTENT: Categories | Cards | Cart -->
-    <main id="cards" class="flex-1">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <!-- LEFT SIDEBAR: Categories -->
-          <aside class="lg:col-span-2 bg-white rounded-2xl shadow-soft p-4 h-fit lg:sticky lg:top-24">
-            <h2 class="text-lg font-semibold mb-3">Categories</h2>
-            <div id="categories" class="space-y-2 max-h-[60vh] overflow-y-auto no-scrollbar">
-              <!-- Category buttons injected here -->
-            </div>
-          </aside>
-
-          <!-- CENTER: Cards grid -->
-          <section class="lg:col-span-8 min-h-[400px]">
-            <!-- Loading Spinner -->
-            <div id="spinner" class="hidden flex items-center justify-center py-20">
-              <svg class="animate-spin h-10 w-10 text-ge-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-              </svg>
-            </div>
-
-            <!-- Cards container -->
-            <div id="plantGrid" class="grid sm:grid-cols-2 xl:grid-cols-3 gap-5"></div>
-            
-            <!-- Empty state -->
-            <div id="emptyState" class="hidden text-center py-16">
-              <p class="text-slate-500">No trees found for this category.</p>
-            </div>
-          </section>
-
-          <!-- RIGHT SIDEBAR: Cart -->
-          <aside class="lg:col-span-2 bg-white rounded-2xl shadow-soft p-4 h-fit lg:sticky lg:top-24">
-            <h2 class="text-lg font-semibold">Your Cart</h2>
-            <div id="cartList" class="mt-3 space-y-2 max-h-[45vh] overflow-y-auto no-scrollbar"></div>
-            <div class="mt-4 border-t pt-3 flex items-center justify-between">
-              <span class="font-semibold">Total</span>
-              <span class="font-bold" id="cartTotal">$0.00</span>
-            </div>
-            <button id="checkoutBtn" class="mt-4 w-full rounded-xl bg-ge-primary/90 text-white py-2 hover:bg-ge-dark disabled:opacity-50" disabled>
-              Checkout
-            </button>
-          </aside>
+<!-- Main Content -->
+  <main class="flex-1 max-w-7xl mx-auto px-4 py-10">
+    <h1 class="text-center text-2xl font-bold mb-8">Choose Your Trees</h1>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- Sidebar: Categories -->
+      <aside class="lg:col-span-2 bg-white p-4 rounded-2xl shadow-soft lg:sticky lg:top-24 max-h-[70vh] overflow-y-auto">
+        <h2 class="text-lg font-semibold mb-3">Categories</h2>
+        <div id="categories" class="space-y-2"></div>
+      </aside>
+      
+      <!-- Cards Grid -->
+      <section class="lg:col-span-8">
+        <div id="plantGrid" class="grid sm:grid-cols-2 xl:grid-cols-3 gap-5"></div>
+      </section>
+      
+      <!-- Cart Sidebar -->
+      <aside class="lg:col-span-2 bg-white p-4 rounded-2xl shadow-soft">
+        <h2 class="text-lg font-semibold">Your Cart</h2>
+        <div id="cartList" class="mt-3 space-y-2 max-h-[45vh] overflow-y-auto"></div>
+        <div class="mt-4 border-t pt-3 flex justify-between">
+          <span class="font-semibold">Total</span>
+          <span class="font-bold" id="cartTotal">$0.00</span>
         </div>
-      </div>
-    </main>
+        <button id="checkoutBtn" class="mt-4 w-full bg-ge-primary text-white py-2 rounded-xl hover:bg-ge-dark disabled:opacity-50" disabled>
+          Checkout
+        </button>
+      </aside>
+    </div>
+  </main>
 
     <!-- ABOUT THE CAMPAIGN -->
     <section id="about" class="bg-[#ECFDF5] py-16">
@@ -180,7 +163,7 @@
     <section id="donate" class="bg-green-700 py-16">
   <div class="max-w-md mx-auto text-center text-white">
     <h2 class="text-2xl font-bold mb-6">Plant a Tree Today</h2>
-  <form class="bg-green-700 p-6 rounded-lg space-y-4">
+  <form id="donationForm" class="bg-green-700 p-6 rounded-lg space-y-4">
       <input type="text" placeholder="Your Name" 
         class="w-full rounded-md px-4 py-2 text-gray-800 placeholder-gray-400 outline-none" required/>
   <input type="email" placeholder="Your Email Address" 
@@ -207,283 +190,21 @@
     </p>
   </div>
 </footer>
-
-
-  <!-- MODAL -->
-  <div id="modal" class="fixed inset-0 z-50 hidden">
-    <div class="absolute inset-0 bg-black/50" data-close-overlay></div>
-    <div class="relative mx-auto my-10 max-w-2xl rounded-2xl bg-white shadow-soft p-6">
-      <div class="flex justify-between items-start gap-4">
+ <!-- Modal for Plant Details -->
+  <div id="modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-2xl shadow-soft max-w-2xl w-full p-6 m-4">
+      <div class="flex justify-between items-center mb-4">
         <h3 id="modalTitle" class="text-xl font-bold">Tree Details</h3>
-        <button id="modalClose" class="rounded-full p-2 hover:bg-slate-100">✖️</button>
+        <button id="modalClose" class="text-2xl">&times;</button>
       </div>
-      <div id="modalBody" class="mt-4 space-y-3">
-        <!-- Populated dynamically -->
-      </div>
+      <div id="modalBody" class="space-y-4"></div>
     </div>
   </div>
 
-  <!-- TOAST -->
-  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 hidden">
-    <div class="rounded-xl bg-slate-900 text-white px-4 py-2 shadow-soft text-sm" id="toastMsg">Saved</div>
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 hidden">
+    <div id="toastMsg" class="bg-slate-900 text-white px-4 py-2 rounded-xl shadow-soft text-sm"></div>
   </div>
-
-  <script>
-    const API = {
-      allPlants: 'https://openapi.programming-hero.com/api/plants',
-      categories: 'https://openapi.programming-hero.com/api/categories',
-      byCategory: (id) => `https://openapi.programming-hero.com/api/category/${id}`,
-      detail: (id) => `https://openapi.programming-hero.com/api/plant/${id}`,
-    };
-
-    // Elements
-    const categoriesEl = document.getElementById('categories');
-    const plantGrid = document.getElementById('plantGrid');
-    const spinner = document.getElementById('spinner');
-    const emptyState = document.getElementById('emptyState');
-    const cartList = document.getElementById('cartList');
-    const cartTotalEl = document.getElementById('cartTotal');
-    const checkoutBtn = document.getElementById('checkoutBtn');
-    
-
-    // Modal elements
-    const modal = document.getElementById('modal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalBody = document.getElementById('modalBody');
-    const modalClose = document.getElementById('modalClose');
-
-    // Toast
-    const toast = document.getElementById('toast');
-    const toastMsg = document.getElementById('toastMsg');
-
-    // State
-    let activeCategoryId = null; // null = all
-    const cart = []; // {id,name,price}
-
-    // Helpers
-    const showSpinner = (show) => { spinner.classList.toggle('hidden', !show); };
-    const showEmpty = (show) => { emptyState.classList.toggle('hidden', !show); };
-    const fmt = (num) => `$${Number(num || 0).toFixed(2)}`;
-
-    const showToast = (msg) => {
-      toastMsg.textContent = msg;
-      toast.classList.remove('hidden');
-      setTimeout(() => toast.classList.add('hidden'), 1800);
-    };
-
-    const setActiveCategory = (id) => {
-      activeCategoryId = id;
-      [...categoriesEl.querySelectorAll('button[data-id]')].forEach(btn => {
-        const match = btn.getAttribute('data-id') === String(id);
-        btn.classList.toggle('bg-ge-primary');
-        btn.classList.toggle('text-white', match);
-        btn.classList.toggle('border-ge-primary', !match);
-        btn.classList.toggle('bg-white', !match);
-        if (match) btn.classList.add('ring-2','ring-ge-light');
-        else btn.classList.remove('ring-2','ring-ge-light');
-      });
-    };
-
-    // Render functions
-    const renderCategories = (cats=[]) => {
-      categoriesEl.innerHTML = '';
-      // "All" button
-      const allBtn = document.createElement('button');
-      allBtn.textContent = 'All';
-      allBtn.setAttribute('data-id', 'all');
-      allBtn.className = 'w-full text-left rounded-xl border px-3 py-2 hover:bg-ge-primary/10';
-      
-      categoriesEl.appendChild(allBtn);
-
-      cats.forEach(cat => {
-        const id = cat?.id || cat?.categoryId || cat?._id || cat?.category_id || cat?.category || '0';
-        const name = cat?.category || cat?.name || cat?.title || `Category ${id}`;
-        const btn = document.createElement('button');
-        btn.className = 'w-full text-left rounded-xl border px-3 py-2 hover:bg-ge-primary/10 bg-white';
-        btn.textContent = name;
-        btn.setAttribute('data-id', id);
-        btn.addEventListener('click', () => {
-          setActiveCategory(String(id));
-          loadPlants(String(id));
-        });
-        categoriesEl.appendChild(btn);
-      });
-
-      // set initial active
-      setActiveCategory('all');
-    };
-
-    const plantCard = (p) => {
-      const id = p?.id || p?.plantId || p?._id || p?.serial || p?.plant_id || p?.plant_id?.toString?.() || '';
-      const name = p?.plantName || p?.name || p?.title || 'Unknown Tree';
-      const img = p?.image || p?.img || p?.thumbnail || 'https://images.unsplash.com/photo-1524213452769-6c8960d729d7?q=80&w=1200&auto=format&fit=crop';
-      const desc = p?.description || p?.shortDescription || 'No description available.';
-      const category = p?.category || p?.category_name || 'General';
-      const price = Number(p?.price ?? p?.cost ?? 0);
-
-      const el = document.createElement('article');
-      el.className = 'rounded-2xl bg-white shadow-soft overflow-hidden flex flex-col';
-      el.innerHTML = `
-        <div class="aspect-[4/3] bg-slate-100 overflow-hidden">
-          <img src="${img}" alt="${name}" class="h-full w-full object-cover"/>
-        </div>
-        <div class="p-4 flex-1 flex flex-col">
-          <h3 class="text-lg font-bold cursor-pointer text-ge-primary hover:underline" data-role="open-modal" data-id="${id}">${name}</h3>
-          <p class="mt-1 text-sm text-slate-600 line-clamp-2">${desc}</p>
-          <div class="mt-3 flex items-center gap-2 text-xs">
-            <span class="rounded-full bg-ge-light/50 text-ge-dark px-2 py-0.5">${category}</span>
-          </div>
-          <div class="mt-4 flex items-center justify-between">
-            <span class="font-bold">${fmt(price)}</span>
-            <button class="rounded-xl bg-ge-primary text-white px-3 py-2 hover:bg-ge-dark" data-role="add-to-cart" data-id="${id}" data-name="${name}" data-price="${price}">Add to Cart</button>
-          </div>
-        </div>`;
-
-      // Wire events
-      el.querySelector('[data-role="open-modal"]').addEventListener('click', () => openModal(id, name));
-      el.querySelector('[data-role="add-to-cart"]').addEventListener('click', (e) => {
-        const { id, name, price } = e.currentTarget.dataset;
-        addToCart({ id, name, price: Number(price) });
-      });
-      return el;
-    };
-
-    const renderPlants = (list=[]) => {
-      plantGrid.innerHTML = '';
-      if (!list.length) { showEmpty(true); return; }
-      showEmpty(false);
-      list.forEach(p => plantGrid.appendChild(plantCard(p)));
-    };
-
-    const renderCart = () => {
-      cartList.innerHTML = '';
-      let total = 0;
-      cart.forEach((item, idx) => {
-        total += Number(item.price || 0);
-        const row = document.createElement('div');
-        row.className = 'flex items-center justify-between gap-2 rounded-xl border px-3 py-2';
-        row.innerHTML = `
-          <div class="min-w-0">
-            <p class="font-medium truncate">${item.name}</p>
-            <p class="text-xs text-slate-500">${fmt(item.price)}</p>
-          </div>
-          <button aria-label="Remove" class="shrink-0 hover:text-red-600" data-index="${idx}">❌</button>
-        `;
-        row.querySelector('button').addEventListener('click', (e) => {
-          const i = Number(e.currentTarget.getAttribute('data-index'));
-          removeFromCart(i);
-        });
-        cartList.appendChild(row);
-      });
-      cartTotalEl.textContent = fmt(total);
-      checkoutBtn.disabled = cart.length === 0;
-    };
-
-    // Cart ops
-    const addToCart = (item) => {
-      cart.push(item);
-      renderCart();
-      showToast(`${item.name} added to cart`);
-    };
-    const removeFromCart = (index) => {
-      const [removed] = cart.splice(index, 1);
-      renderCart();
-      if (removed) showToast(`${removed.name} removed`);
-    };
-
-    // Data loaders
-    const fetchJSON = async (url) => {
-      const res = await fetch(url);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      return res.json();
-    };
-
-    const loadCategories = async () => {
-      try {
-        const data = await fetchJSON(API.categories);
-        // The API might return {categories:[...]} or {...}
-        const cats = data?.categories || data?.data || data?.result || data || [];
-        renderCategories(Array.isArray(cats) ? cats : []);
-      } catch (e) {
-        renderCategories([]);
-        console.error('Failed to load categories', e);
-      }
-    };
-
-    const loadPlants = async (categoryId = null) => {
-      showSpinner(true);
-      try {
-        let url = API.allPlants;
-        if (categoryId && categoryId !== 'all') url = API.byCategory(categoryId);
-        const data = await fetchJSON(url);
-        // Normalize list depending on API shape
-        const list = data?.plants || data?.data || data?.result || data?.items || [];
-        renderPlants(Array.isArray(list) ? list : []);
-      } catch (e) {
-        console.error('Failed to load plants', e);
-        renderPlants([]);
-      } finally {
-        showSpinner(false);
-      }
-    };
-
-    const openModal = async (id, fallbackTitle='Tree Details') => {
-      modalBody.innerHTML = '<div class="flex items-center justify-center py-6"><svg class="animate-spin h-8 w-8 text-ge-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg></div>';
-      modalTitle.textContent = fallbackTitle;
-      modal.classList.remove('hidden');
-      try {
-        const data = await fetchJSON(API.detail(id));
-        const d = data?.plant || data?.data || data || {};
-        const name = d?.plantName || d?.name || fallbackTitle;
-        const img = d?.image || d?.img || 'https://images.unsplash.com/photo-1524213452769-6c8960d729d7?q=80&w=1200&auto=format&fit=crop';
-        const price = Number(d?.price ?? 0);
-        const details = d?.details || d?.description || '—';
-        const category = d?.category || 'General';
-        modalTitle.textContent = name;
-        modalBody.innerHTML = `
-          <div class="grid md:grid-cols-2 gap-4">
-            <img src="${img}" alt="${name}" class="rounded-xl w-full h-full object-cover">
-            <div class="space-y-2">
-              <p class="text-slate-600"><span class="font-semibold">Category:</span> ${category}</p>
-              <p class="text-slate-600"><span class="font-semibold">Price:</span> ${fmt(price)}</p>
-              <p class="text-slate-700 leading-relaxed">${details}</p>
-              <div class="pt-2">
-                <button class="rounded-xl bg-ge-primary text-white px-4 py-2 hover:bg-ge-dark" id="modalAdd">Add to Cart</button>
-              </div>
-            </div>
-          </div>`;
-        document.getElementById('modalAdd').addEventListener('click', () => {
-          addToCart({ id, name, price });
-        });
-      } catch (e) {
-        console.error('Failed to load details', e);
-        modalBody.innerHTML = '<p class="text-red-600">Failed to load details. Please try again.</p>';
-      }
-    };
-
-    // Modal close handlers
-    modalClose.addEventListener('click', () => modal.classList.add('hidden'));
-    modal.addEventListener('click', (e) => { if (e.target.hasAttribute('data-close-overlay')) modal.classList.add('hidden'); });
-    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') modal.classList.add('hidden'); });
-
-    // Donation form
-    document.getElementById('donationForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      e.target.reset();
-      showToast('Thank you for your donation!');
-    });
-
-    // Refresh button
-    refreshAllBtn.addEventListener('click', async () => {
-      setActiveCategory('all');
-      await loadPlants();
-    });
-
-    // INIT
-    (async function init(){
-      await loadCategories();
-      await loadPlants();
-    })();
-  </script>
+<script src="script.js"></script>
 </body>
 </html>                                                                                                                                                                  
